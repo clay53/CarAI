@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AIManagerScript : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class AIManagerScript : MonoBehaviour
     public double[][] currentWeights;
     public string currentWeightsS;
     public double[][] bestWeights;
+    public InputField bestWeightsS;
 
     public int maxUpdates = 1000;
     public int currentUpdates = 0;
@@ -24,7 +26,7 @@ public class AIManagerScript : MonoBehaviour
 
     void Start()
     {
-        
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -44,7 +46,9 @@ public class AIManagerScript : MonoBehaviour
                 currentWeightsS = weightsString(currentWeights);
                 print(currentWeightsS);
             } else {
-                if (currentCar.transform.position.x >= 10) {
+                if (currentCarScript.win) {
+                    bestWeightsS.text = currentWeightsS;
+                    print(gameObject.name + " has had it's car complete the course.");
                     Time.timeScale = 0;
                 } else {
                     currentUpdates++;
@@ -57,9 +61,10 @@ public class AIManagerScript : MonoBehaviour
             if (currentCar == null) {
                 currentCar = (GameObject)Instantiate(car, new Vector2(-10, 0), (Quaternion)Quaternion.Euler(0, 0, -90));
                 currentCarScript = currentCar.GetComponent<carScript>();
-                currentCarScript.weights = stringToWeights(currentWeightsS);
+                currentCarScript.weights = stringToWeights(bestWeightsS.text);
                 
-            } else if (currentCar.transform.position.x >= 10) {
+            } else if (currentCarScript.win) {
+                print(gameObject.name + " has had it's car complete the course.");
                 Time.timeScale = 0;
             } else if (visualizing) {
                 visualizer.setWeights(currentCarScript.nodes, currentCarScript.weights);

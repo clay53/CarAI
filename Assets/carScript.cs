@@ -22,6 +22,8 @@ public class carScript : MonoBehaviour
     public double[][] weights;
     public double[][] nodes;
 
+    public bool win = false;
+
     void Awake()
     {
         weights = new double[middleLayers+1][];
@@ -144,6 +146,8 @@ public class carScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "wall") {
             Destroy(gameObject);
+        } else if (col.gameObject.tag == "win") {
+            win = true;
         }
     }
 

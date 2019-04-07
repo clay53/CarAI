@@ -6,6 +6,7 @@ TagManager:
   tags:
   - car
   - wall
+  - win
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - cars
   - walls
-  - 
+  - meta
   - 
   - 
   - 
